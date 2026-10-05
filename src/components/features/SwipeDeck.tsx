@@ -3,14 +3,17 @@
 import { useState } from "react";
 import { AnimatePresence, motion, useMotionValue, useTransform } from "framer-motion";
 import { RotateCcw, Shell } from "lucide-react";
+import type { SentShell } from "@/lib/shells";
 import type { Profile } from "@/types";
 import ProfileCard from "./ProfileCard";
+import ShellSheet from "./ShellSheet";
+import { useShells } from "./ShellProvider";
 
 type Direction = 1 | -1; 
-const THRESHOLD = 110;
+const THRESHOLD = 110; 
 
 const variants = {
-  enter: { scale: 0.94, y: 12 }, 
+  enter: { scale: 0.94, y: 12 },
   exit: (dir: Direction) => ({
     x: dir * 600,
     rotate: dir * 18,
@@ -71,31 +74,44 @@ function SwipeCard({
 export default function SwipeDeck({ profiles }: { profiles: Profile[] }) {
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState<Direction>(1);
-  const [shells, setShells] = useState<string[]>([]); // 已送出贝壳的人的 id
+  const { sent, sendShell } = useShells(); 
+  
+  const [deck, setDeck] = useState(() => profiles.filter((p) => !sent.some((s) => s.toId === p.id)));
+  const [sheetFor, setSheetFor] = useState<Profile | null>(null); // 正在给谁写贝壳
 
-  const current = profiles[index];
-  const next = profiles[index + 1];
+  const current = deck[index];
+  const next = deck[index + 1];
 
-  function decide(dir: Direction) {
-    if (!current) return;
-    setDirection(dir);
-    if (dir === 1) setShells((s) => [...s, current.id]);
+
+  function request(dir: Direction) {
+    if (!current || sheetFor) return;
+    if (dir === 1) setSheetFor(current);
+    else {
+      setDirection(-1);
+      setIndex((i) => i + 1);
+    }
+  }
+
+  function send(shell: SentShell) {
+    sendShell(shell);
+    setSheetFor(null);
+    setDirection(1);
     setIndex((i) => i + 1);
   }
 
   function restart() {
+    setDeck(profiles.filter((p) => !sent.some((s) => s.toId === p.id)));
     setIndex(0);
-    setShells([]);
   }
 
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="relative flex flex-1 flex-col overflow-hidden">
       <header className="flex items-center justify-between px-5 pb-3 pt-5">
         <div className="flex items-center gap-2 text-xl font-extrabold tracking-tight">
           <span className="text-2xl">🦕</span> SoloMate
         </div>
         <span className="text-xs font-semibold text-ink/55">
-          {shells.length} shell{shells.length === 1 ? "" : "s"} sent
+          {sent.length} shell{sent.length === 1 ? "" : "s"} sent
         </span>
       </header>
 
@@ -107,7 +123,7 @@ export default function SwipeDeck({ profiles }: { profiles: Profile[] }) {
         )}
 
         <AnimatePresence custom={direction}>
-          {current && <SwipeCard key={current.id} profile={current} direction={direction} onDecide={decide} />}
+          {current && <SwipeCard key={current.id} profile={current} direction={direction} onDecide={request} />}
         </AnimatePresence>
 
         {!current && (
@@ -127,14 +143,14 @@ export default function SwipeDeck({ profiles }: { profiles: Profile[] }) {
 
       <div className="flex items-center justify-between gap-4 px-8 py-4">
         <button
-          onClick={() => decide(-1)}
+          onClick={() => request(-1)}
           disabled={!current}
           className="h-14 rounded-full bg-white px-8 text-base font-extrabold shadow-lg shadow-ink/10 transition active:scale-95 disabled:opacity-40"
         >
           Next
         </button>
         <button
-          onClick={() => decide(1)}
+          onClick={() => request(1)}
           disabled={!current}
           aria-label="Send a shell"
           className="grid h-14 w-14 place-items-center rounded-full bg-forest text-white shadow-lg shadow-forest/30 transition active:scale-95 hover:bg-forest-deep disabled:opacity-40"
@@ -142,6 +158,18 @@ export default function SwipeDeck({ profiles }: { profiles: Profile[] }) {
           <Shell size={26} />
         </button>
       </div>
+
+      <AnimatePresence>
+        {sheetFor && (
+          <ShellSheet
+            key={sheetFor.id}
+            profile={sheetFor}
+            item={{ kind: "trip", id: sheetFor.id, label: `${sheetFor.trip.city} trip` }}
+            onClose={() => setSheetFor(null)}
+            onSend={send}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
