@@ -5,8 +5,8 @@ export const ME: Profile = {
   id: "me",
   name: "Alex",
   age: 28,
-  gender: "man",
-  visibleTo: "everyone", 
+  gender: "woman",
+  visibleTo: "woman",
   baseCity: "Stockholm",
   tagline: "Remote designer. Carry-on only, always.",
   trip: {
