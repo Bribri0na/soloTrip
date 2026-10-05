@@ -2,14 +2,14 @@
 
 import Avatar from "@/components/features/Avatar";
 import { useShells } from "@/components/features/ShellProvider";
-import { ME } from "@/data/me";
+
 import { PROFILES } from "@/data/profiles";
 import { getInbox } from "@/lib/buddy";
 
 export default function MessagesPage() {
-  const { incoming } = useShells();
+  const { me, incoming } = useShells();
 
-  const chats = getInbox(ME, incoming, PROFILES).filter((e) => e.status === "accepted");
+  const chats = getInbox(me, incoming, PROFILES).filter((e) => e.status === "accepted");
 
   return (
     <div className="flex flex-1 flex-col">

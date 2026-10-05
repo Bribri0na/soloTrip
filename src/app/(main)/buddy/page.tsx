@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ShieldCheck } from "lucide-react";
 import Avatar from "@/components/features/Avatar";
 import { useShells } from "@/components/features/ShellProvider";
-import { ME } from "@/data/me";
+
 import { PROFILES } from "@/data/profiles";
 import { getInbox, type InboxEntry } from "@/lib/buddy";
 import { formatDateRange } from "@/lib/format";
@@ -74,10 +74,10 @@ function ReceivedCard({
 }
 
 export default function BuddyPage() {
-  const { incoming, sent, respond } = useShells();
+  const { me, incoming, sent, respond } = useShells();
   const [tab, setTab] = useState<Tab>("received");
 
-  const inbox = getInbox(ME, incoming, PROFILES);
+  const inbox = getInbox(me, incoming, PROFILES);
   const pending = inbox.filter((e) => e.status === "pending").length;
 
   return (

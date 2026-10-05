@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AnimatePresence, motion, useMotionValue, useTransform } from "framer-motion";
 import { RotateCcw, Shell } from "lucide-react";
 import type { SentShell } from "@/lib/shells";
+import { getFeed } from "@/lib/visibility"
 import type { Profile } from "@/types";
 import ProfileCard from "./ProfileCard";
 import ShellSheet from "./ShellSheet";
@@ -74,9 +75,9 @@ function SwipeCard({
 export default function SwipeDeck({ profiles }: { profiles: Profile[] }) {
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState<Direction>(1);
-  const { sent, sendShell } = useShells(); 
-  
-  const [deck, setDeck] = useState(() => profiles.filter((p) => !sent.some((s) => s.toId === p.id)));
+  const { me, sent, sendShell } = useShells(); 
+  const buildDeck = () => getFeed(me, profiles).filter((p) => !sent.some((s) => s.toId === p.id))
+  const [ deck, setDeck] = useState(buildDeck)
   const [sheetFor, setSheetFor] = useState<Profile | null>(null); // 正在给谁写贝壳
 
   const current = deck[index];
@@ -100,7 +101,7 @@ export default function SwipeDeck({ profiles }: { profiles: Profile[] }) {
   }
 
   function restart() {
-    setDeck(profiles.filter((p) => !sent.some((s) => s.toId === p.id)));
+    setDeck(buildDeck())
     setIndex(0);
   }
 

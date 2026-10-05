@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useShells } from "@/components/features/ShellProvider";
-import { ME } from "@/data/me";
+
 import { PROFILES } from "@/data/profiles";
 import { getInbox } from "@/lib/buddy";
 
@@ -16,9 +16,9 @@ const tabs = [
 
 export default function BottomNav() {
   const pathname = usePathname();
-  const { incoming } = useShells();
+  const {me, incoming} = useShells();
   
-  const pending = getInbox(ME, incoming, PROFILES).filter((e) => e.status === "pending").length;
+  const pending = getInbox(me, incoming, PROFILES).filter((e) => e.status === "pending").length;
 
   return (
     <nav className="flex justify-around border-t border-mist bg-cream px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2">
