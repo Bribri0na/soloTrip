@@ -1,0 +1,157 @@
+
+import type { Profile } from "@/types";
+
+export const PROFILES: Profile[] = [
+  {
+    id: "aiko",
+    name: "Aiko",
+    age: 29,
+    gender: "woman",
+    visibleTo: "women",
+    baseCity: "Osaka",
+    tagline: "Slow mornings, fast trains, and one more ramen shop.",
+    trip: {
+      city: "Seoul",
+      country: "South Korea",
+      startDate: "2026-11-12",
+      endDate: "2026-11-20",
+      activities: ["Cafe Hopping", "Local Food Tasting", "Vintage Markets", "City Walk", "Photography Buddy"],
+    },
+    photos: [
+      { id: "aiko-1", caption: "Kyoto, Japan", color: "#F4B183" },
+      { id: "aiko-2", caption: "Seoul, South Korea", color: "#8FA3D9" },
+    ],
+    prompts: [
+      { question: "My ideal morning on a trip looks like…", answer: "Up before the city, a konbini egg sandwich, and the first train to wherever looks interesting." },
+      { question: "My budget style is…", answer: "Hostel beds, splurge dinners." },
+    ],
+    visited: [
+      { flag: "🇰🇷", name: "Seoul" },
+      { flag: "🇻🇳", name: "Hanoi" },
+      { flag: "🇹🇼", name: "Taipei" },
+    ],
+    verifiedTrips: 6,
+  },
+  {
+    id: "mateo",
+    name: "Mateo",
+    age: 32,
+    gender: "man",
+    visibleTo: "everyone",
+    baseCity: "Buenos Aires",
+    tagline: "Will trade asado tips for your favourite hiking trail.",
+    trip: {
+      city: "Torres del Paine",
+      country: "Chile",
+      startDate: "2026-12-03",
+      endDate: "2026-12-10",
+      activities: ["Hiking", "Kayaking", "Split Car Rental", "Share Accommodation", "Grocery & Cook"],
+    },
+    photos: [
+      { id: "mateo-1", caption: "Patagonia, Chile", color: "#9CC3DE" },
+      { id: "mateo-2", caption: "Cartagena, Colombia", color: "#F2C078" },
+    ],
+    prompts: [
+      { question: "One place I won't go back to…", answer: "A bus station at 3am in La Paz." },
+      { question: "Looking for a buddy to…", answer: "Do the W Trek this December. I have a spare tent." },
+    ],
+    visited: [
+      { flag: "🇨🇱", name: "Santiago" },
+      { flag: "🇵🇪", name: "Cusco" },
+      { flag: "🇪🇸", name: "Barcelona" },
+    ],
+    verifiedTrips: 5,
+    vouches: 7,
+  },
+  {
+    id: "lena",
+    name: "Lena",
+    age: 27,
+    gender: "woman",
+    visibleTo: "everyone",
+    baseCity: "Berlin",
+    tagline: "Museum by day, techno by night, croissant always.",
+    trip: {
+      city: "Tbilisi",
+      country: "Georgia",
+      startDate: "2026-10-18",
+      endDate: "2026-10-25",
+      activities: ["Museums", "Vintage Markets", "Rooftop Drinks", "Open-air Concerts", "Photography Buddy"],
+    },
+    photos: [
+      { id: "lena-1", caption: "Copenhagen, Denmark", color: "#A9C0E6" },
+      { id: "lena-2", caption: "Porto, Portugal", color: "#E8A27A" },
+    ],
+    prompts: [
+      { question: "My ideal morning on a trip looks like…", answer: "A gallery opening at 10, flat white at 10:05." },
+      { question: "I geek out about…", answer: "Brutalist architecture." },
+    ],
+    visited: [
+      { flag: "🇫🇷", name: "Paris" },
+      { flag: "🇨🇿", name: "Prague" },
+      { flag: "🇯🇵", name: "Tokyo" },
+    ],
+    verifiedTrips: 4,
+  },
+  {
+    id: "kwame",
+    name: "Kwame",
+    age: 31,
+    gender: "man",
+    visibleTo: "everyone",
+    baseCity: "Accra",
+    tagline: "Surfer, sound engineer, collector of bad souvenir magnets.",
+    trip: {
+      city: "Weligama",
+      country: "Sri Lanka",
+      startDate: "2027-01-08",
+      endDate: "2027-01-22",
+      activities: ["Morning Run", "Kayaking", "Share Accommodation", "Local Food Tasting", "Open-air Concerts"],
+    },
+    photos: [
+      { id: "kwame-1", caption: "Taghazout, Morocco", color: "#F7B77E" },
+      { id: "kwame-2", caption: "Cape Town, South Africa", color: "#7FB8D4" },
+    ],
+    prompts: [
+      { question: "My travel non-negotiable is…", answer: "Checking the swell forecast before I book anything." },
+      { question: "Looking for a buddy to…", answer: "Share a surf camp in Sri Lanka in January. Beginners welcome." },
+    ],
+    visited: [
+      { flag: "🇲🇦", name: "Taghazout" },
+      { flag: "🇿🇦", name: "Cape Town" },
+      { flag: "🇮🇩", name: "Bali" },
+    ],
+    verifiedTrips: 8,
+    vouches: 12,
+  },
+  {
+    id: "sofia",
+    name: "Sofia",
+    age: 26,
+    gender: "woman",
+    visibleTo: "women",
+    baseCity: "Lisbon",
+    tagline: "First solo trip was two years ago. Haven't stopped since.",
+    trip: {
+      city: "Mexico City",
+      country: "Mexico",
+      startDate: "2026-11-01",
+      endDate: "2026-11-09",
+      activities: ["Cultural Festivals", "Local Food Tasting", "City Walk", "Museums", "Share Accommodation"],
+    },
+    photos: [
+      { id: "sofia-1", caption: "Madeira, Portugal", color: "#A6D6B0" },
+      { id: "sofia-2", caption: "Istanbul, Türkiye", color: "#D9837A" },
+    ],
+    prompts: [
+      { question: "My ideal morning on a trip looks like…", answer: "Pastel de nata, sea swim, then a very long lunch." },
+      { question: "My budget style is…", answer: "Backpacker with occasional hotel pool envy." },
+    ],
+    visited: [
+      { flag: "🇲🇽", name: "Oaxaca" },
+      { flag: "🇹🇷", name: "Istanbul" },
+      { flag: "🇬🇷", name: "Athens" },
+    ],
+    verifiedTrips: 3,
+  },
+];
