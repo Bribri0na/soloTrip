@@ -8,8 +8,16 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "SoloMate",
+  metadataBase: new URL("https://solotrip-nine.vercel.app"),
+  title: "SoloTrip",
   description: "Find travel buddies for your next solo trip.",
+  openGraph: {
+    title: "SoloTrip: Find a travel buddy for your next solo trip",
+    description: "A women-first travel-buddy app with safety built into the product logic.",
+    url: "/",
+    siteName: "SoloTrip",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

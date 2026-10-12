@@ -6,7 +6,7 @@ export const ME: Profile = {
   name: "Alex",
   age: 28,
   gender: "woman",
-  visibleTo: "woman",
+  visibleTo: "women",
   baseCity: "Stockholm",
   tagline: "Remote designer. Carry-on only, always.",
   trip: {
